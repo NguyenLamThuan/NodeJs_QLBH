@@ -51,7 +51,6 @@
                                 </div>
                                 <div>
                                     <form action="/delete-product/<%= dataProd[i].ProID %>" method="post">
-                                        <input type="text" name="ProID" value="<%= dataProd[i].ProID %>" hidden>
                                         <input type="text" name="CompID" value="<%= dataProd[i].CompID %>" hidden>
                                         <button type="submit">Delete</button>
                                     </form>

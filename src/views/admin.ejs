@@ -17,7 +17,7 @@
 
     </div>
     <div style="width: 460px; margin: 10px auto;">
-        <form action="/create-new-product" method="POST">
+        <form action="/create-new-product" method="POST" enctype="multipart/form-data">
             <table>
                 <tr>
                     <th colspan="2">
@@ -83,7 +83,9 @@
                 <tr>
                     <td colspan="2">
                         <h2>Create new company</h2>
+
                     </td>
+
                 </tr>
                 <tr>
                     <td>
@@ -117,16 +119,17 @@
                         <label>Phone: </label>
                     </td>
                     <td>
-                        <input type="text" name="CompPhone" placeholder="10 numbers" required />
+                        <input type="text" id="phone" name="CompPhone" placeholder="10 numbers" required />
                     </td>
                 </tr>
-                <td>
+                <tr>
+                    <td>
 
-                </td>
-                <td>
-                    <button type="submit">Submit</button>
-                    <button type="reset">reset</button>
-                </td>
+                    </td>
+                    <td>
+                        <button type="submit">Submit</button>
+                        <button type="reset">reset</button>
+                    </td>
                 </tr>
             </table>
         </form>
