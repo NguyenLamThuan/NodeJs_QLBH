@@ -1,0 +1,73 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a class="active" href="/company">Company</a>
+        <a href="/admin">admin</a>
+
+    </div>
+    <div style="margin: 10px auto; width: 980px;">
+        <% if (dataProd.length> 0){ %>
+            <table style="width: 980px; text-align: center;">
+                <tr border="1px solid">
+                    <th>STT</th>
+                    <th>Name Product</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th></th>
+                </tr>
+                <% let n=1 %>
+
+                    <% for (let i=0; i < dataProd.length ; i++) {%>
+
+                        <tr>
+                            <td>
+                                <%= n++ %>
+                            </td>
+                            <td>
+                                <%= dataProd[i].ProName %>
+                            </td>
+                            <td>
+                                <%= dataProd[i].ProPrice %> VND
+                            </td>
+                            <td>
+                                <img src="../image/<%= dataProd[i].ProdImage %>" height="100px">
+                            </td>
+                            <td style="display: flex; gap: 10px;">
+                                <div>
+                                    <form action="/edit-product/<%= dataProd[i].ProID %>" method="get">
+                                        <button type="submit">Edit</button>
+                                    </form>
+                                </div>
+                                <div>
+                                    <form action="/delete-product/<%= dataProd[i].ProID %>" method="post">
+                                        <input type="text" name="ProID" value="<%= dataProd[i].ProID %>" hidden>
+                                        <input type="text" name="CompID" value="<%= dataProd[i].CompID %>" hidden>
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </div>
+
+
+                            </td>
+                        </tr>
+
+                        <% } %>
+
+            </table>
+            <% } else { %>
+                <h2>No products found</h2>
+                <% } %>
+    </div>
+
+
+</html>

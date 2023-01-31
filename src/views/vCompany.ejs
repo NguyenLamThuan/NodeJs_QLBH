@@ -1,0 +1,59 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a class="active" href="/company">Company</a>
+        <a href="/admin">admin</a>
+
+    </div>
+    <div class="w3-container">
+        <h2>Company</h2>
+
+        <table class="w3-table-all w3-hoverable">
+            <tr class="w3-light-grey">
+
+                <th>Company</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th></th>
+            </tr>
+            <% for (let i=0; i < dataComp.length ; i++) {%>
+                <tr>
+                    <td>
+                        <%= dataComp[i].CompName%>
+                    </td>
+                    <td>
+                        <%= dataComp[i].CompEmail%>
+                    </td>
+                    <td>
+                        <%= dataComp[i].CompPhone%>
+                    </td>
+                    <td>
+                        <%= dataComp[i].CompAddress%>
+                    </td>
+                    <td style="display: flex;gap: 10px;">
+                        <a href="/product/<%= dataComp[i].CompID %>">product</a>
+                        <form action="">
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+                </tr>
+
+                <% } %>
+        </table>
+    </div>
+
+</body>
+
+</html>

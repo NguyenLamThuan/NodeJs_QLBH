@@ -1,0 +1,48 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="/company">Company</a>
+        <a href="/admin">admin</a>
+
+    </div>
+    <div style="height: auto; width: 980px; margin: 2px auto;">
+        <% for (let i=0; i < dataPro.length ; i++) {%>
+            <div class="product">
+                <table class="table_product">
+                    <tr>
+                        <td>
+                            <img src="./image/<%= dataPro[i].ProdImage %>" width="100%" height="100px">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <%= dataPro[i].ProName %>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Price: <a href="/">
+                                <%= dataPro[i].ProPrice %>
+                            </a> VND
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <% } %>
+    </div>
+
+
+</html>

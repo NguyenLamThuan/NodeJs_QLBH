@@ -1,0 +1,135 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a href="/company">Company</a>
+        <a class="active" href="/admin">admin</a>
+
+    </div>
+    <div style="width: 460px; margin: 10px auto;">
+        <form action="/create-new-product" method="POST">
+            <table>
+                <tr>
+                    <th colspan="2">
+                        <h2>Create new product</h2>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Product Name: </label>
+                    </td>
+                    <td>
+                        <input type="text" name="ProName" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Price: </label>
+                    </td>
+                    <td>
+                        <input type="text" name="ProPrice" required />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>Image: </label>
+
+                    </td>
+                    <td>
+                        <input type="file" name="ProdImage" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Company: </label>
+                    </td>
+                    <td>
+                        <select name="CompID">
+                            <% for (let i=0; i < dataComp.length ; i++) {%>
+                                <option value="<%= dataComp[i].CompID%>">
+                                    <%= dataComp[i].CompName%>
+                                </option>
+                                <% } %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        <button type="submit">Submit</button>
+                        <button type="reset">reset</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <div style="width: 460px; margin: 10px auto;">
+        <form action="/create-new-company" method="POST">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <h2>Create new company</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Company Name: </label>
+                    </td>
+                    <td>
+                        <input type="text" name="CompName" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>email </label>
+                    </td>
+                    <td>
+                        <input type="email" name="CompEmail" required />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>Address: </label>
+
+                    </td>
+                    <td>
+                        <input type="text" name="CompAddress" required />
+                    </td>
+                </tr>
+                <tr>
+                <tr>
+                    <td>
+                        <label>Phone: </label>
+                    </td>
+                    <td>
+                        <input type="text" name="CompPhone" placeholder="10 numbers" required />
+                    </td>
+                </tr>
+                <td>
+
+                </td>
+                <td>
+                    <button type="submit">Submit</button>
+                    <button type="reset">reset</button>
+                </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</body>
