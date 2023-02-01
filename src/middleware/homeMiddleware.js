@@ -1,7 +1,41 @@
+import pool from '../configs/connectDB';
 import multer from 'multer';
 import path from 'path';
 var appRoot = require('app-root-path');
 
+let CookieUser = async (req, res, next) => {
+    let UserID = req.cookies.Cookie;
+
+    if (!UserID) {
+        res.redirect('/login');
+    } else {
+        let [user] = await pool.execute('select * from users where UserID= ?', [UserID]);
+        if (user == '') {
+            res.redirect('/login');
+        } else {
+            next();
+        }
+    }
+
+    return;
+}
+let LogOut = (req, res) => {
+    if (req.cookies.Cookie) {
+        res.clearCookie('Cookie');
+        res.redirect('/')
+    }
+    return;
+
+}
+
+let LogIn = (req, res, next) => {
+    let UserID = req.cookies.Cookie;
+    if (!UserID) {
+        next();
+    } else {
+        res.redirect('/admin');
+    }
+}
 
 let phone = (req, res, next) => {
     let { CompPhone } = req.body;
@@ -46,6 +80,8 @@ const imageFilter = function (req, file, cb) {
     cb(null, true);
 };
 
+
+
 export default {
-    updatephone, phone, imageFilter, storage
+    CookieUser, LogOut, LogIn, updatephone, phone, imageFilter, storage
 }

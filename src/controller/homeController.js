@@ -1,10 +1,10 @@
 import pool from '../configs/connectDB';
+import md5 from 'md5';
 
 let getHomePage = async (req, res) => {
     const [rows, fields] = await pool.execute('SELECT * FROM product')
     return res.render("index.ejs", { dataPro: rows })
 }
-
 
 let getCompanyPage = async (req, res) => {
     const [rows, fields] = await pool.execute('SELECT * FROM company')
@@ -21,72 +21,51 @@ let getAdminPage = async (req, res) => {
     const [comp] = await pool.execute('SELECT * FROM company');
     return res.render("admin.ejs", { dataComp: comp })
 }
-///
-let createNewProduct = async (req, res) => {
+let getLogin = (req, res) => {
+    return res.render('login.ejs');
 
-    if (req.fileValidationError) {
-        return res.send(req.fileValidationError);
+}
+
+let postUserLogin = async (req, res) => {
+    let User = req.body.UserName;
+    let Pass = md5(req.body.PassWord);
+
+    let [users] = await pool.execute('select * from users where UserName =? and Password = ?',
+        [User, Pass]);
+    if (users == '') {
+        res.redirect("/login");
+    } else {
+        res.cookie('Cookie', users[0].UserID);
+        res.redirect("/admin");
     }
-    else if (!req.file) {
-        return res.send('Please select an image to upload');
-    }
-    let { ProName, ProPrice, CompID } = req.body;
-    let ProdImage = req.file.filename;
-    await pool.execute('insert into product(ProName,ProPrice,ProdImage,CompID) values (?,?,?,?)',
-        [ProName, ProPrice, ProdImage, CompID]);
-    return res.redirect('/')
-}
-///
-let createNewCompany = async (req, res) => {
-    let { CompName, CompEmail, CompAddress, CompPhone } = req.body;
-    await pool.execute('insert into company(CompName,CompEmail,CompAddress,CompPhone) values (?,?,?,?)',
-        [CompName, CompEmail, CompAddress, CompPhone])
-    return res.redirect('/company');
+    return;
 
 }
-let postDeleteProduct = async (req, res) => {
-    let ProID = req.params.ProID;
-    let CompID = req.body.CompID;
-    await pool.execute('delete from product where ProID =?', [ProID]);
-    return res.redirect(`/product/${CompID}`);
+let getSignUp = (req, res) => {
+    return res.render('signup.ejs');
 }
-let getEditCompany = async (req, res) => {
-    let CompID = req.params.CompID;
-    const [rows, fields] = await pool.execute('SELECT * FROM company where CompID = ?',
-        [CompID]);
-    return res.render("editCompany.ejs", { dataComp: rows });
+let postSignUpUser = async (req, res) => {
+    let { UserName, PassWord, RePassWord } = req.body
+
+    if (PassWord !== RePassWord) {
+        res.redirect("/sign-up-user");
+    } else {
+        let [users] = await pool.execute('select * from users where UserName =?',
+            [UserName]);
+        if (users != '') {
+            res.redirect("/sign-up-user");
+        } else {
+            let Pass = md5(PassWord);
+            await pool.execute('insert into users(UserName,Password) values (?,?)',
+                [UserName, Pass]);
+            res.redirect('/login');
+        }
+
+    } return;
 }
 
-let portUpdateCompany = async (req, res) => {
-    let { CompName, CompEmail, CompAddress, CompPhone, CompID } = req.body;
-    await pool.execute("update company set CompName = ? , CompEmail= ? , CompAddress= ? , CompPhone= ? where CompID = ? ",
-        [CompName, CompEmail, CompAddress, CompPhone, CompID]);
-    return res.redirect('/company');
-}
-
-let getEditProduct = async (req, res) => {
-    let ProID = req.params.ProID;
-    const [rows, fields] = await pool.execute('select * from product where ProID = ?', [ProID]);
-    const [comp] = await pool.execute('SELECT * FROM company');
-    return res.render('editproduct.ejs', { dataProd: rows, dataComp: comp });
-}
-
-let postUpdateProduct = async (req, res) => {
-    if (req.fileValidationError) {
-        return res.send(req.fileValidationError);
-    }
-    else if (!req.file) {
-        return res.send('Please select an image to upload');
-    }
-    let { ProName, ProPrice, CompID, ProID } = req.body;
-    let ProdImage = req.file.filename;
-    await pool.execute('update product set ProName = ? , ProPrice = ? , ProdImage= ? , CompID= ? where ProID = ?',
-        [ProName, ProPrice, ProdImage, CompID, ProID]);
-    return res.redirect(`/product/${CompID}`);
-
-}
 
 module.exports = {
-    getCompanyPage, getHomePage, getProductPage, getAdminPage, createNewProduct, createNewCompany,
-    postDeleteProduct, getEditCompany, portUpdateCompany, getEditProduct, postUpdateProduct
+    getCompanyPage, getHomePage, getProductPage, getAdminPage, getLogin, postUserLogin,
+    getSignUp, postSignUpUser
 }

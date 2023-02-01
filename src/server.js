@@ -2,6 +2,7 @@
 import express from "express";
 import configViewEinggine from "./configs/viewEngine";
 import initWebRoute from "./route/web";
+import cookieParser from 'cookie-parser';
 //import connection from './configs/connectDB';
 
 require('dotenv').config();
@@ -14,11 +15,16 @@ const port = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// cookie
+app.use(cookieParser());
+
 // set up viewengine
 configViewEinggine(app);
 
 
 initWebRoute(app);
+
+
 
 
 // app.get('/', (req, res) => {

@@ -1,0 +1,59 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login page</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a href="/company">Company</a>
+        <a class="active" href="/admin">admin</a>
+
+    </div>
+    <div class="div-all">
+        <form action="/login-user" method="post">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <h2>Log in</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        UserName:
+                    </td>
+                    <td>
+                        <input type="text" name="UserName" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        PassWord:
+                    </td>
+                    <td>
+                        <input type="password" name="PassWord" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        <button type="submit">Log in</button><br>
+                        <a href="/sign-up-user">Sign up</a>
+                    </td>
+                </tr>
+            </table>
+
+    </div>
+    </form>
+
+</body>
+
+</html>
